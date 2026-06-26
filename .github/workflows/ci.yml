@@ -1,0 +1,30 @@
+name: Pemeriksaan Otomatis
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ambil source code
+        uses: actions/checkout@v4
+
+      - name: Pasang Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instal dependency
+        run: npm ci
+
+      - name: Jalankan test
+        run: npm test
+
+      - name: Build aplikasi
+        run: npm run build
